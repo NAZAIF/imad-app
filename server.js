@@ -5,7 +5,8 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleone={
+var articles = {
+ 'articleone':{
     title:'IMAD | A1',
     heading:'article one',
     date:'3 aug 17',
@@ -16,7 +17,26 @@ var articleone={
             <p>
                 A business (also known as an enterprise, a company or a firm) is an organizational entity involved in the provision of goods and services to consumers.
             </p>`
-};    
+},
+
+ 'articletwo':{
+    title:'IMAD | A2',
+    heading:'article two',
+    date:'3 aug 17',
+    content:`
+             <p>
+                Globalization (or globalisation; see spelling differences) refers to the free movement of goods, capital, services, people, technology and information. It is the action or procedure of international integration of countries arising from the convergence of world views
+            </p>
+            <p>
+                A business (also known as an enterprise, a company or a firm) is an organizational entity involved in the provision of goods and services to consumers.
+            </p>
+            <p>
+                 Los Angeles' Hollywood is famed for filmmaking.
+            </p>
+            <a href="https://en.wikipedia.org/wiki/United_States">LINK</a>`
+
+    }
+ };    
 
 function createtemplate(data){
     date=data.date;
@@ -64,17 +84,16 @@ app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
 
-app.get('/art-one', function (req,res) {
- res.send(createtemplate(articleone));  
+app.get('/:artname', function (req,res) {
+    var artname=req.params.artname;
+    res.send(createtemplate(articles[artname]));  
 });
 
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
-app.get('/two', function (req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'two.html'));
-});
+
 
 
 // Do not change port, otherwise your app won't run on IMAD servers
