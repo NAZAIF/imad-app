@@ -64,7 +64,7 @@ app.get('/ui/style.css', function (req, res) {
 });
 
 app.get('/art-one', function (req,res) {
- res.send(createhtml(articleone));  
+ res.send(createtemplate(articleone));  
 });
 
 app.get('/ui/madi.png', function (req, res) {
