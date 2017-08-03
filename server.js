@@ -56,7 +56,7 @@ return htmltemplate;
 }
 
 app.get('/', function (req, res) {
-  res.send(createtemplate(articleone));
+  res.sendFile(path.join(__dirname 'ui', 'index.html'));
 });
 
 app.get('/ui/style.css', function (req, res) {
@@ -64,7 +64,7 @@ app.get('/ui/style.css', function (req, res) {
 });
 
 app.get('/art-one', function (req,res) {
-  res.sendFile(path.join(__dirname, 'ui', 'art-one.html'));  
+ res.send(createhtml(articleone));  
 });
 
 app.get('/ui/madi.png', function (req, res) {
