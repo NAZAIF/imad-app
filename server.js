@@ -15,9 +15,11 @@ app.get('/ui/style.css', function (req, res) {
 
 app.get('/art-one', function (req,res) {
     res.send('art-one served');
-    res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
+app.get('/art-2', function (res,req) {
+     res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
+});
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
