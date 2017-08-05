@@ -1,11 +1,11 @@
 console.log('ITs me nazaif');
 var elmt = document.getElementById('maintext');
 elmt.innerHTML = 'new mode';
-var marginl = 0;
+var marginLeft = 0;
 var img = document.getElementById('madi');
 function goright(){
-    marginl = marginl+2;
-    img.style.marginl = marginl + 'px';
+    marginLeft = marginLeft+2;
+    img.style.marginLeft = marginLeft + 'px';
 }
 
 img.onclick  = function() {
