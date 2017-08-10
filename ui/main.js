@@ -43,11 +43,4 @@ submit.onclick = function() {
     request.open('GET','http://nazaifmoid.imad.hasura-app.io/submit?name=' + name, true);
     request.send(null);
     
-    var names = ['johny' , 'baby' , 'joy'];
-    var list = '';
-    for (var i=0; i<names.length; i++){
-        list+='<li>'+names[i]+'</li>';
-    }
-    var ui = document.getElementById('namelist');
-    ui.innerHTML = list;
-};
+ };
