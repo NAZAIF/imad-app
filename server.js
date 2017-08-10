@@ -53,7 +53,7 @@ function createtemplate(data){
         <link href="ui/style.css" rel="stylesheet" />
     </head>
     <body>
-      <div class="cont">
+      <div class="cont" >
         <div>
             ${date}
         </div>
@@ -68,6 +68,13 @@ function createtemplate(data){
         </div>
         <div> 
            ${content}
+        </div>
+        <div class="footer" >
+            <input type="text" id="cmnt" placeholder="give comment"></input>
+             <input type="submit" id="cmntbtn" value="submit" ></input>
+             <ul id="cmntlist">
+                
+             </ul>
         </div>
       </div>
     </body>
@@ -91,6 +98,32 @@ app.get('/submit',function (req, res){
 app.get('/:artname', function (req,res) {
     var artname=req.params.artname;
     res.send(createtemplate(articles[artname]));  
+    var submit = document.getElementById('cmntbtn');
+submit.onclick = function() {
+    var request = new XMLHttpRequest();
+        request.onreadystatechange = function(){
+        if (request.readyState === XMLHttpRequest.DONE){
+            if (request.status === 200){
+                var cmnts = request.responseText;
+                cmnts = JSON.parse(cmnts);
+                var list = '';
+                for (var i=0; i<cmnts.length; i++){
+                list+='<li>'+cmnts[i]+'</li>';
+                }
+                var ui = document.getElementById('cmntlist');
+                ui.innerHTML = list;
+            
+            }
+        }
+    };
+    var cmntinput = document.getElementById('cmnt');
+    var cmnt = cmntinput.value;
+    request.open('GET','http://nazaifmoid.imad.hasura-app.io', true);
+    request.send(null);
+    
+ };
+
+    
 });
 
 var counter = 0;
