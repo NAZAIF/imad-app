@@ -80,6 +80,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+app.get('/:artname', function (req,res) {
+    var artname=req.params.artname;
+    res.send(createtemplate(articles[artname]));  
+});
+
 var names = [];
 app.get('/submit',function (req, res){
     var name = req.query.name;
@@ -101,10 +106,6 @@ app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
 
-app.get('/:artname', function (req,res) {
-    var artname=req.params.artname;
-    res.send(createtemplate(articles[artname]));  
-});
 
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
