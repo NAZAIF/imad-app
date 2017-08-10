@@ -19,13 +19,11 @@ button.onclick = function (){
 };
 
 
-var nameinput = document.getElementById('name');
-var name = nameinput.value;
+
 var submit = document.getElementById('subbtn');
 submit.onclick = function() {
     var request = new XMLHttpRequest();
-    
-    request.onreadystatechange = function(){
+        request.onreadystatechange = function(){
         if (request.readyState === XMLHttpRequest.DONE){
             if (request.status === 200){
                 var names = request.responseText;
@@ -40,7 +38,8 @@ submit.onclick = function() {
             }
         }
     };
-    
+    var nameinput = document.getElementById('name');
+    var name = nameinput.value;
     request.open('GET','http://nazaifmoid.imad.hasura-app.io/submit?name=' + name, true);
     request.send(null);
     
