@@ -1,156 +1,40 @@
-var express = require('express');
-var morgan = require('morgan');
-var path = require('path');
-
-var app = express();
-app.use(morgan('combined'));
-
-var articles = {
- 'articleone':{
-    title:'IMAD | A1',
-    heading:'article one',
-    date:'19 aug 17',
-    content:`
-            <p>
-                Globalization (or globalisation; see spelling differences) refers to the free movement of goods, capital, services, people, technology and information. It is the action or procedure of international integration of countries arising from the convergence of world views
-            </p>
-            <p>
-                A business (also known as an enterprise, a company or a firm) is an organizational entity involved in the provision of goods and services to consumers.
-            </p>`
-},
-
- 'articletwo':{
-    title:'IMAD | A2',
-    heading:'article two',
-    date:'3 aug 17',
-    content:`
-             <p>
-                Globalization (or globalisation; see spelling differences) refers to the free movement of goods, capital, services, people, technology and information. It is the action or procedure of international integration of countries arising from the convergence of world views
-            </p>
-            <p>
-                A business (also known as an enterprise, a company or a firm) is an organizational entity involved in the provision of goods and services to consumers.
-            </p>
-            <p>
-                 Los Angeles' Hollywood is famed for filmmaking.
-            </p>
-            <a href="https://en.wikipedia.org/wiki/United_States">LINK</a>`
-
-    }
- };    
-
-function createtemplate(data){
-    date=data.date;
-    title=data.title;
-    heading=data.heading;
-    content=data.content;
-    var htmltemplate=`
-    <html>
+<!doctype html>
+<html>
     <head>
-        <title>
-            ${title}
-        </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="ui/style.css" rel="stylesheet" />
+        <link href="/ui/style.css" rel="stylesheet" />
     </head>
     <body>
-      <div class="cont" >
+        <div class="cont">
+         <div class="center" id="madi">
+            <img src="https://lh3.googleusercontent.com/-Ukou6CNiZck/AAAAAAAAAAI/AAAAAAAAJ0I/2cNuYqgFXQs/s60-p-rw-no/photo.jpg" class="img-medium"/>
+         </div>
+        
+        <br>
+        <hr/>
+        <h3>personal</h3>
         <div>
-            ${date}
-        </div>
-        <div>
-            <a href="http://www.outlooker.in/">click</a>
+            my name is NAZAIF MOIDEEN    
         </div>
         <hr/>
+        <h3>professional</h3>
         <div>
-            <h2>
-                ${heading}
-            </h2>
+            I'm a student
         </div>
-        <div> 
-           ${content}
-        </div>
-        <div class="footer" >
-            <input type="text" id="cmnt" placeholder="give comment"></input>
-             <input type="submit" id="cmntbtn" value="submit" ></input>
-             <ul id="cmntlist">
+        <hr/>
+        <div class="footer">
+             this button <button id="counter">click me</button>has been clicked  <span id="count">0</span> times.
+              <hr/>
+             <input type="text" id="name" placeholder="name"></input>
+             <input type="submit" id="subbtn" value="submit" ></input>
+             <ul id="namelist">
                 
              </ul>
+       
         </div>
       </div>
+     
+      
+        <script type="text/javascript" src="/ui/main.js">
+        </script>
     </body>
 </html>
-`;
-return htmltemplate;
-}
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
-
-
-var names = [];
-app.get('/submit',function (req, res){
-    var name = req.query.name;
-    names.push(name);
-    res.send(JSON.stringify(names));
-});
-
-app.get('/:artname', function (req,res) {
-    var artname=req.params.artname;
-    res.send(createtemplate(articles[artname]));  
-    var submit = document.getElementById('cmntbtn');
-submit.onclick = function() {
-    var request = new XMLHttpRequest();
-        request.onreadystatechange = function(){
-        if (request.readyState === XMLHttpRequest.DONE){
-            if (request.status === 200){
-                var cmnts = request.responseText;
-                cmnts = JSON.parse(cmnts);
-                var list = '';
-                for (var i=0; i<cmnts.length; i++){
-                list+='<li>'+cmnts[i]+'</li>';
-                }
-                var ui = document.getElementById('cmntlist');
-                ui.innerHTML = list;
-            
-            }
-        }
-    };
-    var cmntinput = document.getElementById('cmnt');
-    var cmnt = cmntinput.value;
-    request.open('GET','http://nazaifmoid.imad.hasura-app.io', true);
-    request.send(null);
-    
- };
-
-    
-});
-
-var counter = 0;
-app.get('/counter', function (req,res){
-    counter = counter + 1;
-    res.send(counter.toString());
-});
-
-app.get('/ui/style.css', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'style.css'));
-});
-
-app.get('/ui/main.js', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'main.js'));
-});
-
-
-app.get('/ui/madi.png', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
-});
-
-
-
-// Do not change port, otherwise your app won't run on IMAD servers
-// Use 8080 only for local development if you already have apache running on 80
-
-var port = 80;
-app.listen(port, function () {
-  console.log(`IMAD course app listening on port ${port}!`);
-});
