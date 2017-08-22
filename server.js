@@ -16,7 +16,7 @@ var articles = {
  'articleone':{
     title:'IMAD | A1',
     heading:'article one',
-    date:'3 aug 17',
+    date:'4 aug 17',
     content:`
             <p>
                 Globalization (or globalisation; see spelling differences) refers to the free movement of goods, capital, services, people, technology and information. It is the action or procedure of international integration of countries arising from the convergence of world views
@@ -93,7 +93,7 @@ app.get('/testdb', function (req,res){
         if(err){
             res.status(500).send(err.toString());
         }else{
-            res.send(JSON.stringify(result));
+            res.send(JSON.stringify(result.rows));
         }
     });
 });
