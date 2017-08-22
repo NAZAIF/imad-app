@@ -7,7 +7,7 @@ var config = {
     database: 'nazaifmoid',
     host: 'db.imad.hasura-app.io',
     port: '5432',
-    passowrd: process.env.DB-PASSWORD
+    password: process.env.DB-PASSWORD
 };
 var app = express();
 app.use(morgan('combined'));
