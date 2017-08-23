@@ -12,38 +12,7 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 
-var articles = {
- 'articleone':{
-    title:'IMAD | A1',
-    heading:'article one',
-    date:'4 aug 17',
-    content:`
-            <p>
-                Globalization (or globalisation; see spelling differences) refers to the free movement of goods, capital, services, people, technology and information. It is the action or procedure of international integration of countries arising from the convergence of world views
-            </p>
-            <p>
-                A business (also known as an enterprise, a company or a firm) is an organizational entity involved in the provision of goods and services to consumers.
-            </p>`
-},
-
- 'articletwo':{
-    title:'IMAD | A2',
-    heading:'article two',
-    date:'3 aug 17',
-    content:`
-             <p>
-                Globalization (or globalisation; see spelling differences) refers to the free movement of goods, capital, services, people, technology and information. It is the action or procedure of international integration of countries arising from the convergence of world views
-            </p>
-            <p>
-                A business (also known as an enterprise, a company or a firm) is an organizational entity involved in the provision of goods and services to consumers.
-            </p>
-            <p>
-                 Los Angeles' Hollywood is famed for filmmaking.
-            </p>
-            <a href="https://en.wikipedia.org/wiki/United_States">LINK</a>`
-
-    }
- };    
+   
 
 function createtemplate(data){
     date=data.date;
