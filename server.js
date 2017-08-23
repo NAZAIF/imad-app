@@ -46,6 +46,7 @@ var articles = {
  };    
 
 function createtemplate(data){
+    date=data.date;
    title=data.title;
     heading=data.heading;
     content=data.content;
@@ -66,6 +67,9 @@ function createtemplate(data){
                 ${heading}
             </h2>
         </div>
+        <div>
+         ${date.toDateString()}
+         </div>
         <div> 
            ${content}
         </div>
