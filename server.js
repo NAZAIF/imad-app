@@ -46,8 +46,7 @@ var articles = {
  };    
 
 function createtemplate(data){
-   
-    title=data.title;
+   title=data.title;
     heading=data.heading;
     content=data.content;
     var htmltemplate=`
@@ -61,10 +60,6 @@ function createtemplate(data){
     </head>
     <body>
       <div class="cont">
-       
-        <div>
-            <a href="http://www.outlooker.in/">click</a>
-        </div>
         <hr/>
         <div>
             <h2>
