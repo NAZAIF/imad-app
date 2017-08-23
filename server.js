@@ -46,7 +46,7 @@ var articles = {
  };    
 
 function createtemplate(data){
-    date=data.date;
+   
     title=data.title;
     heading=data.heading;
     content=data.content;
@@ -61,9 +61,7 @@ function createtemplate(data){
     </head>
     <body>
       <div class="cont">
-        <div>
-            ${date.toDateString()}
-        </div>
+       
         <div>
             <a href="http://www.outlooker.in/">click</a>
         </div>
