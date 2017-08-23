@@ -46,10 +46,10 @@ var articles = {
  };    
 
 function createtemplate(data){
-   var date=data.date;
-   var title=data.title;
-    var heading=data.heading;
-    var content=data.content;
+    date=data.date;
+    title=data.title;
+    heading=data.heading;
+    content=data.content;
     var htmltemplate=`
     <html>
     <head>
