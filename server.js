@@ -62,7 +62,7 @@ function createtemplate(data){
     <body>
       <div class="cont">
         <div>
-            ${date}
+            ${date.toDateString()}
         </div>
         <div>
             <a href="http://www.outlooker.in/">click</a>
