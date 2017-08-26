@@ -1,9 +1,15 @@
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
+
+app.use(session({
+    secret: 'itssecretboy',
+    cookie:{ maxAge: 1000*60*60*24*3}
+}));
 
 var config = {
     user: 'nazaifmoid',
@@ -121,7 +127,8 @@ app.post('/login', function(req,res){
                 var salt = dbstring.split('$')[2];
                 var hpassword = hash(password,salt)
                 if(hpassword === dbstring){
-                res.send('user' + username +' successfully logged in');
+                    req.session.outh = {userid:result.rows[0].id};
+                    res.send('user' + username +' successfully logged in');
                 }else{
                     res.send(403).send('username\\password is incorrect');
                 }
@@ -130,6 +137,13 @@ app.post('/login', function(req,res){
     });
 });
 
+app.get('/check', function(req,res){
+    if(req.session && res.session.outh && req.session.outh.userid){
+        res.send(req.session.outh.userid.toString() + 'is signed in');
+    }else{
+        res.send('you are not logged in');
+        }
+});
 var counter = 0;
 app.get('/counter', function (req,res){
     counter = counter + 1;
@@ -156,5 +170,5 @@ app.get('/ui/madi.png', function (req, res) {
 
 var port = 80;
 app.listen(port, function () {
-  console.log(`IMAD course app listening on port ${port}!`);
+  console.log(`IMAD course app listening on port ${port}! Dont worry`);
 });
