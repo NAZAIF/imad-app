@@ -122,7 +122,7 @@ app.post('/login', function(req,res){
             res.status(500).send(err.toString());
         }else{
             if(result.rows.length === 0){
-                res.send(403).send('invalid username\\password');
+                res.send(403).send('invalid username/password');
             }else{
                 var dbstring = result.rows[0].password;
                 var salt = dbstring.split('$')[2];
@@ -131,7 +131,7 @@ app.post('/login', function(req,res){
                     req.session.outh = {userid: result.rows[0].id};
                     res.send('user' + username +' successfully logged in');
                 }else{
-                    res.send(403).send('username\\password is incorrect');
+                    res.send(403).send('username/password is incorrect');
                 }
             }
         }
@@ -151,6 +151,10 @@ app.get('/counter', function (req,res){
     res.send(counter.toString());
 });
 
+app.get('/logout', function(req,res){
+   delete req.session.outh;
+   res.send('logged out');
+});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
