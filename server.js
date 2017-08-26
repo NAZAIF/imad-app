@@ -1,10 +1,10 @@
-var session = require('express-session');
 var bodyParser = require('body-parser');
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
+var session = require('express-session');
 
 app.use(session({
     secret: 'someRandomSecretValue',
@@ -127,7 +127,7 @@ app.post('/login', function(req,res){
                 var salt = dbstring.split('$')[2];
                 var hpassword = hash(password,salt)
                 if(hpassword === dbstring){
-                    req.session.outh = {userid:result.rows[0].id};
+                    req.session.outh = {userid: result.rows[0].id};
                     res.send('user' + username +' successfully logged in');
                 }else{
                     res.send(403).send('username\\password is incorrect');
@@ -138,8 +138,8 @@ app.post('/login', function(req,res){
 });
 
 app.get('/check', function(req,res){
-    if(req.session && res.session.outh && req.session.outh.userid){
-        res.send(req.session.outh.userid.toString() + 'is signed in');
+    if(req.session && req.session.outh && req.session.outh.userid){
+        res.send(req.session.outh.userid.toString() + ' is signed in');
     }else{
         res.send('you are not logged in');
         }
