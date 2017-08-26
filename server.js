@@ -6,10 +6,6 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var session = require('express-session');
 
-app.use(session({
-    secret: 'someRandomSecretValue',
-    cookie:{ maxAge: 1000*60*60*24*30}
-}));
 
 var config = {
     user: 'nazaifmoid',
@@ -21,6 +17,11 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+
+app.use(session({
+    secret: 'someRandomSecretValue',
+    cookie:{ maxAge: 1000*60*60*24*30}
+}));
    
 
 function createtemplate(data){
