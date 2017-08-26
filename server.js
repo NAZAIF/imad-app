@@ -7,7 +7,7 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 
 app.use(session({
-    secret: 'ItsSecretBoy',
+    secret: 'someRandomSecretValue',
     cookie:{ maxAge: 1000*60*60*24*30}
 }));
 
