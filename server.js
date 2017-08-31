@@ -109,7 +109,9 @@ app.post('/create-user', function(req,res){
         if(err){
             res.status(500).send(err.toString());
         }else{
-            res.send('user successfully created with ' + username);
+            //res.send('user successfully created with ' + username);
+            res.setHeader('Content-Type','application/json');
+            res.send(JSON.parse('{"message":"User successfully create"}'));
         }
     });
 });
@@ -122,16 +124,24 @@ app.post('/login', function(req,res){
             res.status(500).send(err.toString());
         }else{
             if(result.rows.length === 0){
-                res.send(403).send('invalid username/password');
+                //res.send(403).send('invalid username/password');
+                res.setHeader('Content-Type','application/json');
+                res.send(JSON.parse('{"error":"invalid username/password"}'));
             }else{
                 var dbstring = result.rows[0].password;
                 var salt = dbstring.split('$')[2];
                 var hpassword = hash(password,salt)
                 if(hpassword === dbstring){
                     req.session.outh = {userid: result.rows[0].id};
-                    res.send('user' + username +' successfully logged in');
+                    //res.send('user' + username +' successfully logged in');
+                    res.setHeader('Content-Type','application/json');
+                    res.send(JSON.parse('{"message":"you are successfully logged in"}'));
+                    
                 }else{
-                    res.send(403).send('username/password is incorrect');
+                    //res.send(403).send('username/password is incorrect');
+                    res.setHeader('Content-Type','application/json');
+                    res.send(JSON.parse('{"error":"incorrect username/password"}'));
+            
                 }
             }
         }
