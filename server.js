@@ -66,10 +66,15 @@ app.get('/', function (req, res) {
 app.get('/articles/:artname', function (req,res) {
     pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
         if(err){
-            res.status(500).send(err.toString());
+            res.setHeader('Content-Type','application/json');
+            res.status(500).send(JSON.parse('{"error":"No article send"}'));
+           // res.status(500).send(err.toString());
         }else{
             if(result.rows.length===0){
-                res.status(404).send('article not found');
+                //res.status(404).send('article not found');
+                res.setHeader('Content-Type','application/json');
+                res.status(404).send(JSON.parse('{"error":"No article send"}'));
+                
             }else{
                 var artData = result.rows[0];
                 res.send(createtemplate(artData));        
