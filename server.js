@@ -113,7 +113,7 @@ app.post('/create-user', function(req,res){
     pool.query('INSERT INTO "user" (username,password) VALUES ($1,$2)',[username,dbstring], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            res.status.send(JSON.parse('{"error":"Registration failed"}'));
+            res.status(500).send(JSON.parse('{"error":"Registration failed"}'));
             //res.status(500).send(err.toString());
         }else{
             //res.send('user successfully created with ' + username);
@@ -129,7 +129,7 @@ app.post('/login', function(req,res){
     pool.query('SELECT * FROM "user" WHERE username = $1',[username], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            res.status.send(JSON.parse('{"error":"Login failed"}'));
+            res.status(500).send(JSON.parse('{"error":"Login failed"}'));
             //res.status(500).send(err.toString());
         }else{
             if(result.rows.length === 0){
