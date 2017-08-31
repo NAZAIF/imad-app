@@ -112,11 +112,13 @@ app.post('/create-user', function(req,res){
     var dbstring = hash(password,salt);
     pool.query('INSERT INTO "user" (username,password) VALUES ($1,$2)',[username,dbstring], function(err,result){
         if(err){
-            res.status(500).send(err.toString());
+            res.setHeader('Content-Type','application/json');
+            res.status.send(JSON.parse('{"error":err.toString()}'));
+            //res.status(500).send(err.toString());
         }else{
             //res.send('user successfully created with ' + username);
             res.setHeader('Content-Type','application/json');
-            res.send(JSON.parse('{"message":"User successfully create"}'));
+            res.send(JSON.parse('{"message":"User successfully created"}'));
         }
     });
 });
