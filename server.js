@@ -146,7 +146,7 @@ app.post('/login', function(req,res){
             }else{
                 var dbstring = result.rows[0].password;
                 var salt = dbstring.split('$')[2];
-                var hpassword = hash(password,salt)
+                var hpassword = hash(password,salt);
                 if(hpassword === dbstring){
                     req.session.outh = {userid: result.rows[0].id};
                     //res.send('user' + username +' successfully logged in');
