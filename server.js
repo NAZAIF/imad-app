@@ -100,11 +100,11 @@ app.post('/getarticle/:artname', function (req,res) {
                 res.status(404).send(JSON.parse('{"error":"No article send"}'));
                 
             }else{
-                var artData = result.rows[0];
+                var artData = result.rows[0].date;
                 //var artobj = createtemplate(artData);
                 res.setHeader('Content-Type','application/json');
-                //var json2 = JSON.strigify({date:artobj.date});
-                res.send(JSON.parse(createtemplate(artData)));
+                var json2 = JSON.strigify({date:artData});
+                res.send(JSON.parse(json2));
                 
             }
         }
