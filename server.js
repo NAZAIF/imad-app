@@ -111,6 +111,20 @@ app.get('/getarticle/:artname', function (req,res) {
     });
 });
 
+app.get('/get', function (req,res){
+    var data = [
+        {
+            "date":"02-09-2107",
+            "title":"art one",
+            "heading":"article one",
+            "content":"This is article one"
+        }];
+            
+    res.setHeader('Content-Type','application/json');
+    var json = JSON.stringify(data);
+    res.send(JSON.parse(json));
+        
+})
 
 var pool = new Pool(config); 
 app.get('/testdb', function (req,res){
