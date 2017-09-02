@@ -101,10 +101,10 @@ app.post('/getarticle/:artname', function (req,res) {
                 
             }else{
                 var artData = result.rows[0];
-                var artobj = createtemplate(artData);
+                //var artobj = createtemplate(artData);
                 res.setHeader('Content-Type','application/json');
-                var json2 = JSON.strigify({date:artobj.date});
-                res.send(JSON.parse(json2));
+                //var json2 = JSON.strigify({date:artobj.date});
+                res.send(JSON.parse(createtemplate(artData)));
                 
             }
         }
