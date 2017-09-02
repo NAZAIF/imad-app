@@ -77,7 +77,7 @@ app.get('/articles/:artname', function (req,res) {
                 
             }else{
                 var artData = result.rows[0];
-                res.send(createtemplate(artData.date));        
+                res.send(createtemplate(artData));        
                 
             }
         }
@@ -113,7 +113,7 @@ app.post('/create-user', function(req,res){
     pool.query('INSERT INTO "user" (username,password) VALUES ($1,$2)',[username,dbstring], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            res.status(500).send(JSON.parse('{"error":"Registration failed"}'));
+            res.status(500).send(JSON.parse('{"error":this.err.toString()}'));
             //res.status(500).send(err.toString());
         }else{
             //res.send('user successfully created with ' + username);
