@@ -103,7 +103,7 @@ app.post('/getarticle/:artname', function (req,res) {
                 var artData = result.rows[0].date;
                 //var artobj = createtemplate(artData);
                 res.setHeader('Content-Type','application/json');
-                var json2 = JSON.strigify({date:artData});
+                var json2 = JSON.strigify({date:artData.toString()});
                 res.send(JSON.parse(json2));
                 
             }
