@@ -77,7 +77,7 @@ app.get('/articles/:artname', function (req,res) {
                 
             }else{
                 var artData = result.rows[0];
-                res.send(createtemplate(artData));        
+                res.send(createtemplate(artData.date));        
                 
             }
         }
