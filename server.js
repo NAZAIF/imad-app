@@ -86,7 +86,7 @@ app.get('/articles/:artname', function (req,res) {
 });
 
 
-app.post('/getarticle/:artname', function (req,res) {
+app.get('/getarticle/:artname', function (req,res) {
     pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
@@ -100,10 +100,10 @@ app.post('/getarticle/:artname', function (req,res) {
                 res.status(404).send(JSON.parse('{"error":"No article send"}'));
                 
             }else{
-                var artData = result.rows[0].date;
+                var artData = result.rows[0];
                 //var artobj = createtemplate(artData);
                 res.setHeader('Content-Type','application/json');
-                var json2 = JSON.strigify({date:artData.toString()});
+                var json2 = JSON.strigify({date:artData.date.toString()});
                 res.send(JSON.parse(json2));
                 
             }
