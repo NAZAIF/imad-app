@@ -67,7 +67,30 @@ app.get('/articles/:artname', function (req,res) {
     pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify(err.toString());
+            //var json = JSON.stringify({errorerr.toString());
+            //res.status(500).send(JSON.parse(json));
+           res.status(500).send(err.toString());
+        }else{
+            if(result.rows.length===0){
+                res.status(404).send('article not found');
+           //     res.setHeader('Content-Type','application/json');
+             //   res.status(404).send(JSON.parse('{"error":"No article send"}'));
+                
+            }else{
+                var artData = result.rows[0];
+                res.send(createtemplate(artData));        
+                
+            }
+        }
+    });
+});
+
+
+app.get('/getarticle/:artname', function (req,res) {
+    pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
+        if(err){
+            res.setHeader('Content-Type','application/json');
+            var json = JSON.stringify({error:err.toString()});
             res.status(500).send(JSON.parse(json));
            // res.status(500).send(err.toString());
         }else{
@@ -78,7 +101,10 @@ app.get('/articles/:artname', function (req,res) {
                 
             }else{
                 var artData = result.rows[0];
-                res.send(createtemplate(artData));        
+                var artobj = createtemplate(artData);
+                res.setHeader('Content-Type','application/json');
+                var json2 = JSON.strigify({date:artobj.date});
+                res.send(JSON.parse(json2));
                 
             }
         }
@@ -118,7 +144,7 @@ app.post('/create-user', function(req,res){
     pool.query('INSERT INTO "user" (username,password) VALUES ($1,$2)',[username,dbstring], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify({ e:err.toString()});
+            var json = JSON.stringify({ error:err.toString()});
             res.status(500).send(JSON.parse(json));
             //res.status(500).send(err.toString());
         }else{
@@ -171,6 +197,8 @@ app.get('/check', function(req,res){
         res.send('you are not logged in');
         }
 });
+
+
 var counter = 0;
 app.get('/counter', function (req,res){
     counter = counter + 1;
