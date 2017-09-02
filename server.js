@@ -112,24 +112,26 @@ app.get('/getarticle/:artname', function (req,res) {
 });
 
 app.get('/get', function (req,res){
-    var data1 = [
+    var data={
+     data1 : [
         {   "id": 1,
             "date":"02-09-2107",
             "title":"art one",
             "heading":"article one",
             "content":"This is article one"
-        }];
+        }],
     
-    var data2 = [
+     data2 : [
         {   "id": 2,
             "date":"03-09-2107",
             "title":"art two",
             "heading":"article two",
             "content":"This is article two.This is article two.This is article two.This is article two.This is article two.\nThis is article two.This is article two.This is article two."
-        }];
+        }]
+    };
     
     res.setHeader('Content-Type','application/json');
-    var json = JSON.stringify(data1,data2);
+    var json = JSON.stringify(data);
     res.send(JSON.parse(json));
         
 });
