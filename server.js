@@ -67,8 +67,7 @@ app.get('/articles/:artname', function (req,res) {
     pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify(err.toString());
-            res.status(500).send(JSON.parse(json));
+            res.status(500).send(JSON.parse('{"error":"No article send"}'));
            // res.status(500).send(err.toString());
         }else{
             if(result.rows.length===0){
@@ -84,31 +83,7 @@ app.get('/articles/:artname', function (req,res) {
         }
     });
 });
-/*
-app.post('get-article/:artno', function (req,res){
-    pool.query("SELECT * FROM article WHERE title=$1",[req.params.artno], function(err,result){
-        if(err){
-            res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify(err.toString());
-            res.status(500).send(JSON.parse(json));
-           // res.status(500).send(err.toString());
-        }else{
-            if(result.rows.length===0){
-                //res.status(404).send('article not found');
-                res.setHeader('Content-Type','application/json');
-                res.status(404).send(JSON.parse('{"error":"No article send"}'));
-                
-            }else{
-                var artData = result.rows[0];
-                //var artjson = JSON
-                res.send();        
-                
-            }
-        }
-    });
-});
-});
-*/
+
 var pool = new Pool(config); 
 app.get('/testdb', function (req,res){
     pool.query('SELECT * FROM test', function(err, result){
@@ -138,7 +113,7 @@ app.post('/create-user', function(req,res){
     pool.query('INSERT INTO "user" (username,password) VALUES ($1,$2)',[username,dbstring], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify(err.toString());
+            var json = JSON.stringify({error:err.toString()});
             res.status(500).send(JSON.parse(json));
             //res.status(500).send(err.toString());
         }else{
@@ -155,8 +130,7 @@ app.post('/login', function(req,res){
     pool.query('SELECT * FROM "user" WHERE username = $1',[username], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify(err.toString());
-            res.status(500).send(JSON.parse(json));
+            res.status(500).send(JSON.parse('{"error":"Login failed"}'));
             //res.status(500).send(err.toString());
         }else{
             if(result.rows.length === 0){
