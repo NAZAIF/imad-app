@@ -84,31 +84,8 @@ app.get('/articles/:artname', function (req,res) {
         }
     });
 });
-/*
-app.post('get-article/:artno', function (req,res){
-    pool.query("SELECT * FROM article WHERE title=$1",[req.params.artno], function(err,result){
-        if(err){
-            res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify(err.toString());
-            res.status(500).send(JSON.parse(json));
-           // res.status(500).send(err.toString());
-        }else{
-            if(result.rows.length===0){
-                //res.status(404).send('article not found');
-                res.setHeader('Content-Type','application/json');
-                res.status(404).send(JSON.parse('{"error":"No article send"}'));
-                
-            }else{
-                var artData = result.rows[0];
-                //var artjson = JSON
-                res.send();        
-                
-            }
-        }
-    });
-});
-});
-*/
+
+
 var pool = new Pool(config); 
 app.get('/testdb', function (req,res){
     pool.query('SELECT * FROM test', function(err, result){
@@ -120,15 +97,18 @@ app.get('/testdb', function (req,res){
     });
 });
 
+
 function hash(input,salt){
     var hashd = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
     return ["pbkdgf2", "10000", salt, hashd.toString('hex')].join('$');
 }
 
+
 app.get('/hash/:input',function(req,res){
    var hashstr = hash(req.params.input,'this-random-string'); 
    res.send(hashstr);    
 });
+
 
 app.post('/create-user', function(req,res){
     var username = req.body.username;
