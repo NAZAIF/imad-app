@@ -113,7 +113,7 @@ app.get('/getarticle/:artname', function (req,res) {
 
 app.get('/get', function (req,res){
     var data = [
-        {
+        {   "id": 1,
             "date":"02-09-2107",
             "title":"art one",
             "heading":"article one",
