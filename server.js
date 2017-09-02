@@ -86,7 +86,7 @@ app.get('/articles/:artname', function (req,res) {
 });
 
 
-app.get('/getarticle/:artname', function (req,res) {
+app.post('/getarticle/:artname', function (req,res) {
     pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
