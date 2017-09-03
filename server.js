@@ -174,7 +174,7 @@ app.post('/create-user', function(req,res){
         }else{
             //res.send('user successfully created with ' + username);
             res.setHeader('Content-Type','application/json');
-            res.send(JSON.parse('{"message":"User successfully created"}'));
+            res.send(JSON.parse(`{"message": "User succesfully created: ${username}"}`))
         }
     });
 });
