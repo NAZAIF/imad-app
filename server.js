@@ -121,10 +121,19 @@ app.get('/get', function (req,res){
             "content":"This is article one"
         }];
     
+    var data2 = [
+        {   "id": 2,
+            "date":"06-09-2107",
+            "title":"art two",
+            "heading":"article two",
+            "content":"This is article two content.This is article two content.This is article two content.This is article two content."
+        }];
     
     res.setHeader('Content-Type','application/json');
     var json = JSON.stringify(data);
     res.send(JSON.parse(json));
+    var json2 = JSON.stringify(data2);
+    res.send(JSON.parse(json2));
         
 });
 
