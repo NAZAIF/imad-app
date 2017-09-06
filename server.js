@@ -85,63 +85,17 @@ app.get('/articles/:artname', function (req,res) {
     });
 });
 
-function createjson(data){
-    date = data.date;
-    id = data.id;
-    heading = data.heading;
-    title = data.title;
-    content = data.content;
-    var jsontemplate = `[
-    {
-        "id":${id},
-        "date":${date},
-        "title":${title},
-        "heading":${heading},
-        "content":${content}
-    }
-]`;
-    return jsontemplate;
-} 
-
 
 app.get('/getarticles', function (req,res) {
     pool.query("SELECT * FROM article ORDER BY date DESC ", function(err,result){
         if(err){
-            res.setHeader('Content-Type','application/json');
-            var json = JSON.stringify({error:err.toString()});
-            res.status(500).send(JSON.parse(json));
+            res.status(500).send(err.toString());
         }else{
                 res.send(JSON.stringify(result.rows));
               }
     });
 });
 
-app.get('/get', function (req,res){
-    
-    var data = [
-        {   "id": 1,
-            "date":"02-09-2107",
-            "title":"art one",
-            "heading":"article one",
-            "content":"This is article one"
-        },
-    
-    //var data2 = [
-        {   "id": 2,
-            "date":"06-09-2107",
-            "title":"art two",
-            "heading":"article two",
-            "content":"This is article two content.This is article two content.This is article two content.This is article two content."
-        }];
-    
-    res.setHeader('Content-Type','application/json');
-    var json = JSON.stringify(data);
-    //var json2 = JSON.stringify(data2);
-    res.send(JSON.parse(json));
-    //res.setHeader('Content-Type','application/json');
-    //res.send(JSON.parse(json2));
-        
-});
 
 var pool = new Pool(config); 
 app.get('/testdb', function (req,res){
