@@ -117,9 +117,9 @@ app.get('/getarticles', function (req,res) {
                 
             }else{
                 var artData = result.rows[0];
-                //var artobj = createtemplate(artData);
+                var artobj = createjson(artData);
                 res.setHeader('Content-Type','application/json');
-                var json2 = JSON.stringify({createjson(artData)});
+                var json2 = JSON.stringify(artobj);
                 res.send(JSON.parse(json2));
                 
             }
