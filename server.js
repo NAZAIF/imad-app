@@ -105,27 +105,14 @@ function createjson(data){
 
 
 app.get('/getarticles', function (req,res) {
-    pool.query("SELECT * FROM article ", function(err,result){
+    pool.query("SELECT * FROM article ORDER BY date DESC ", function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
             var json = JSON.stringify({error:err.toString()});
             res.status(500).send(JSON.parse(json));
-           // res.status(500).send(err.toString());
         }else{
-            if(result.rows.length===0){
-                //res.status(404).send('article not found');
-                res.setHeader('Content-Type','application/json');
-                res.status(404).send(JSON.parse('{"error":"No article send"}'));
-                
-            }else{
-                var artData = result.rows[0];
-                var artobj = createjson(artData);
-                res.setHeader('Content-Type','application/json');
-                var json2 = JSON.stringify(artobj);
-                res.send(JSON.parse(json2));
-                
-            }
-        }
+                res.send(JSON.stringify(result.rows));
+              }
     });
 });
 
