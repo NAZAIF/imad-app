@@ -86,8 +86,8 @@ app.get('/articles/:artname', function (req,res) {
 });
 
 
-app.get('/getarticle/:artname', function (req,res) {
-    pool.query("SELECT * FROM article WHERE title=$1",[req.params.artname], function(err,result){
+app.get('/getarticles', function (req,res) {
+    pool.query("SELECT * FROM article ", function(err,result){
         if(err){
             res.setHeader('Content-Type','application/json');
             var json = JSON.stringify({error:err.toString()});
@@ -119,9 +119,9 @@ app.get('/get', function (req,res){
             "title":"art one",
             "heading":"article one",
             "content":"This is article one"
-        }];
+        },
     
-    var data2 = [
+    //var data2 = [
         {   "id": 2,
             "date":"06-09-2107",
             "title":"art two",
@@ -130,7 +130,7 @@ app.get('/get', function (req,res){
         }];
     
     res.setHeader('Content-Type','application/json');
-    var json = JSON.stringify(data,data2);
+    var json = JSON.stringify(data);
     //var json2 = JSON.stringify(data2);
     res.send(JSON.parse(json));
     //res.setHeader('Content-Type','application/json');
