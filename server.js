@@ -85,6 +85,22 @@ app.get('/articles/:artname', function (req,res) {
     });
 });
 
+function createjson(data){
+    date = data.date;
+    id = data.id;
+    heading = data.heading;
+    title = data.title;
+    content = data.content;
+    var jsontemplate = `
+        id:${id},
+        date:${date},
+        title:${title},
+        heading:${heading},
+        content:${content}`;
+        
+    return jsontemplate;
+} 
+
 
 app.get('/getarticles', function (req,res) {
     pool.query("SELECT * FROM article ", function(err,result){
@@ -103,7 +119,7 @@ app.get('/getarticles', function (req,res) {
                 var artData = result.rows[0];
                 //var artobj = createtemplate(artData);
                 res.setHeader('Content-Type','application/json');
-                var json2 = JSON.strigify({id:result.rows[0].id});
+                var json2 = JSON.strigify(createjson(artData));
                 res.send(JSON.parse(json2));
                 
             }
