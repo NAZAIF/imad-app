@@ -132,6 +132,7 @@ app.get('/get', function (req,res){
     res.setHeader('Content-Type','application/json');
     var json = JSON.stringify(data);
     res.send(JSON.parse(json));
+    res.setHeader('Content-Type','application/json');
     var json2 = JSON.stringify(data2);
     res.send(JSON.parse(json2));
         
