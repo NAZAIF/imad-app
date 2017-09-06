@@ -131,9 +131,9 @@ app.get('/get', function (req,res){
     
     res.setHeader('Content-Type','application/json');
     var json = JSON.stringify(data);
+    var json2 = JSON.stringify(data2);
     res.send(JSON.parse(json,json2));
     //res.setHeader('Content-Type','application/json');
-    //var json2 = JSON.stringify(data2);
     //res.send(JSON.parse(json2));
         
 });
