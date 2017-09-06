@@ -91,13 +91,15 @@ function createjson(data){
     heading = data.heading;
     title = data.title;
     content = data.content;
-    var jsontemplate = `
+    var jsontemplate = `[
+    {
         'id':${id},
         'date':${date},
         'title':${title},
         'heading':${heading},
-        'content':${content}`;
-        
+        'content':${content}
+    }
+]`;
     return jsontemplate;
 } 
 
